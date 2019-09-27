@@ -1,0 +1,2 @@
+include ':app', ':database', ':sharedpreferences', ':network', ':orchestrator', ':basemodule', ':notification', ':fancywalkthroughlib'
+rootProject.name='Smart Counter'
