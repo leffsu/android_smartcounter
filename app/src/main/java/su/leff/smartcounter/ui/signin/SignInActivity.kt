@@ -2,11 +2,13 @@ package su.leff.smartcounter.ui.signin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -58,11 +60,11 @@ class SignInActivity : AppCompatActivity() {
             val account = completedTask.getResult(ApiException::class.java)
 
             // Signed in successfully, show authenticated UI.
-//            updateUI(account)
+            println(account?.idToken)
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//            Log.w(FragmentActivity.TAG, "signInResult:failed code=" + e.statusCode)
+            Log.w("SignInActivity", "signInResult:failed code=" + e.statusCode)
 //            updateUI(null)
         }
 
