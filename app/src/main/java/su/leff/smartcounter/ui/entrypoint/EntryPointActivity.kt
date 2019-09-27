@@ -6,12 +6,13 @@ import com.shashank.sony.fancywalkthroughlib.FancyWalkthroughActivity
 import com.shashank.sony.fancywalkthroughlib.FancyWalkthroughCard
 import su.leff.smartcounter.ui.MainActivity
 import su.leff.smartcounter.R
+import su.leff.smartcounter.ui.signin.SignInActivity
 
 
 class EntryPointActivity : FancyWalkthroughActivity(){
 
     override fun onFinishButtonPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SignInActivity::class.java))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

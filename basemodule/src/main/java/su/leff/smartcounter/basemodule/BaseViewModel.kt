@@ -1,5 +1,7 @@
 package su.leff.smartcounter.basemodule
 
-class BaseViewModel {
+import androidx.lifecycle.ViewModel
+
+class BaseViewModel: ViewModel() {
 
 }
