@@ -24,6 +24,7 @@ class HomePageFoodAdapter(val context: Context?, newList: ArrayList<Food>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val holder = FoodViewHolder(LayoutInflater.from(context).inflate(R.layout.viewholder_food, parent, false))
         holder.color()
+        holder.itemView.cardViewFood.setOnClickListener {  }
         return holder
     }
 
