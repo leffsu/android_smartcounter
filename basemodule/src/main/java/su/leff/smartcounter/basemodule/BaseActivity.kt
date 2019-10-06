@@ -11,8 +11,6 @@ open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val window = getWindow()
-
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
