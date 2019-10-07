@@ -6,16 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import su.leff.smartcounter.R
-import android.R.attr.colorPrimary
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mancj.slimchart.SlimChart
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import su.leff.smartcounter.colorer.ResourceManager
 
 
@@ -32,13 +27,13 @@ class HomePageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.applicationContext?.let {
-            fragment_background.setBackgroundColor(ResourceManager.getBackgroundColor(it))
+            login_background.setBackgroundColor(ResourceManager.getBackgroundColor(it))
             txvWelcomeMessage.setTextColor(ResourceManager.getUsualTextColorColor(it))
             txvCarbo.setTextColor(ResourceManager.getUsualTextColorColor(it))
             txvFat.setTextColor(ResourceManager.getUsualTextColorColor(it))

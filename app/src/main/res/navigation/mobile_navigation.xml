@@ -2,9 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/homePageFragment">
+    app:startDestination="@id/loginPageFragment">
     <fragment
         android:id="@+id/homePageFragment"
         android:name="su.leff.smartcounter.ui.homepage.HomePageFragment"
         android:label="HomePageFragment" />
+    <fragment
+        android:id="@+id/loginPageFragment"
+        android:name="su.leff.smartcounter.ui.loginpage.LoginPageFragment"
+        android:label="LoginPageFragment" />
 </navigation>
