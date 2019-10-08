@@ -26,7 +26,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_smartcounter"
+                android:src="@mipmap/ic_launcher"
                 app:layout_constraintBottom_toTopOf="@id/txvHelloThere"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
