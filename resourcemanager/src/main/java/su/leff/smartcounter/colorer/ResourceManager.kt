@@ -48,4 +48,12 @@ object ResourceManager {
     fun getBottomAppBarColor(context: Context): Int {
         return ContextCompat.getColor(context, R.color.bottomAppBarColor)
     }
+
+    fun getButtonBackgroundResource(): Int {
+        return R.drawable.ic_button
+    }
+
+    fun getScanButtonResource(): Int {
+        return R.drawable.ic_qr_scan
+    }
 }

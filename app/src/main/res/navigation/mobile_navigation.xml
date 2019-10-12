@@ -2,13 +2,76 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginPageFragment">
+    app:startDestination="@+id/homePageFragment">
     <fragment
         android:id="@+id/homePageFragment"
         android:name="su.leff.smartcounter.ui.homepage.HomePageFragment"
-        android:label="HomePageFragment" />
+        android:label="HomePageFragment">
+        <action
+            android:id="@+id/action_homePageFragment_to_addFoodCategoryFragment"
+            app:destination="@id/addFoodCategoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/homePageFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homePageFragment_to_foodInfoFragment"
+            app:destination="@id/foodInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
         android:name="su.leff.smartcounter.ui.loginpage.LoginPageFragment"
         android:label="LoginPageFragment" />
+    <fragment
+        android:id="@+id/addFoodCategoryFragment"
+        android:name="su.leff.smartcounter.ui.addfoodcategory.AddFoodCategoryFragment"
+        android:label="AddFoodCategoryFragment">
+        <action
+            android:id="@+id/action_addFoodCategoryFragment_to_addFoodDetailedFragment"
+            app:destination="@id/addFoodDetailedFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_addFoodCategoryFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFoodDetailedFragment"
+        android:name="su.leff.smartcounter.ui.addfooddetailed.AddFoodDetailedFragment"
+        android:label="AddFoodDetailedFragment">
+        <action
+            android:id="@+id/action_addFoodDetailedFragment_to_addFoodCategoryFragment"
+            app:destination="@id/addFoodCategoryFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_addFoodDetailedFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodInfoFragment"
+        android:name="su.leff.smartcounter.ui.foodinfo.FoodInfoFragment"
+        android:label="FoodInfoFragment" />
 </navigation>

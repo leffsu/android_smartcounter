@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import kotlinx.android.synthetic.main.main_activity.*
 import su.leff.smartcounter.basemodule.BaseActivity
+import su.leff.smartcounter.colorer.ResourceManager
 import java.util.*
 
 class MainActivity : BaseActivity() {
@@ -19,5 +20,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        nav_host_fragment.setBackgroundResource(ResourceManager.getBackgroundColor())
     }
 }

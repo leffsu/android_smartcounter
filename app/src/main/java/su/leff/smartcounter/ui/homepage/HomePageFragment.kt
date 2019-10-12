@@ -4,14 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import su.leff.smartcounter.R
 import android.content.res.ColorStateList
 import android.os.Build
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import su.leff.smartcounter.colorer.ResourceManager
+import androidx.navigation.Navigation
+
+
 
 
 class HomePageFragment : Fragment() {
@@ -21,6 +27,7 @@ class HomePageFragment : Fragment() {
     val ANIMATION_TIME = 2000
 
     var chartClicked = 0L
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,11 +87,11 @@ class HomePageFragment : Fragment() {
         recyclerFood.adapter = adapter
 
         fabAdd.setOnClickListener {
-
+            findNavController().navigate(R.id.action_homePageFragment_to_addFoodCategoryFragment)
         }
 
         imgPreferences.setOnClickListener {
-
+            findNavController().navigate(R.id.action_homePageFragment_to_foodInfoFragment)
         }
 
         imgCalendar.setOnClickListener {
