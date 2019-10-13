@@ -9,10 +9,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import su.leff.smartcounter.database.Constant.DATABASE_NAME
 import su.leff.smartcounter.database.entity.food.FoodEntity
 import su.leff.smartcounter.database.entity.food.FoodDAO
-import su.leff.smartcounter.database.entity.meal.Meal
+import su.leff.smartcounter.database.entity.meal.MealEntity
 import su.leff.smartcounter.database.entity.meal.MealDAO
 
-@Database(entities = [FoodEntity::class, Meal::class], version = 1, exportSchema = false)
+@Database(entities = [FoodEntity::class, MealEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun foodDAO(): FoodDAO

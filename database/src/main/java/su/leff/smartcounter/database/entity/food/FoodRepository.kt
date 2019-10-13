@@ -1,38 +1,41 @@
 package su.leff.smartcounter.database.entity.food
 
+import androidx.lifecycle.Transformations
+
 
 class FoodRepository(private val mDao: FoodDAO) {
 
     // todo https://jacquessmuts.github.io/post/modularization_room/
 
-    suspend fun insertFood(food: FoodEntity): Int {
-        return mDao.insertFood(food)
+    suspend fun insertFood(food: Food): Int {
+        return mDao.insertFood(FoodEntity.from(food))
     }
 
-    suspend fun fetchAllFood(): List<FoodEntity> {
-        return mDao.fetchAllFood()
+    suspend fun fetchAllFood(): List<Food> {
+        return FoodEntity.toFood(mDao.fetchAllFood())
     }
 
-    suspend fun getFood(foodId: Int): FoodEntity {
-        return mDao.getFood(foodId)
+    suspend fun getFood(foodId: Int): Food {
+        return mDao.getFood(foodId).toFood()
     }
 
-    suspend fun getFoodByMeal(mealId: Int): List<FoodEntity> {
-        return mDao.getFoodByMeal(mealId)
+    suspend fun getFoodByMeal(mealId: Int): List<Food> {
+        return FoodEntity.toFood(mDao.getFoodByMeal(mealId))
     }
 
-    suspend fun updateFood(food: FoodEntity) {
-        return mDao.updateFood(food)
+    suspend fun updateFood(food: Food) {
+        return mDao.updateFood(FoodEntity.from(food))
     }
 
-    suspend fun deleteFood(food: FoodEntity) {
-        return mDao.deleteFood(food)
+    suspend fun deleteFood(food: Food) {
+        return mDao.deleteFood(FoodEntity.from(food))
     }
 
     companion object {
 
         // For Singleton instantiation
-        @Volatile private var instance: FoodRepository? = null
+        @Volatile
+        private var instance: FoodRepository? = null
 
         fun getInstance(foodDAO: FoodDAO) =
             instance ?: synchronized(this) {

@@ -6,22 +6,22 @@ import androidx.room.*
 interface MealDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMeal(meal: Meal): Int?
+    suspend fun insertMeal(meal: MealEntity): Int?
 
 
-    @Query("SELECT * FROM user")
-    suspend fun fetchAllMeal(): List<Meal>
+    @Query("SELECT * FROM meal_table")
+    suspend fun fetchAllMeal(): List<MealEntity>
 
 
-    @Query("SELECT * FROM user WHERE id =:mealId")
-    suspend fun getMeal(mealId: Int): Meal
+    @Query("SELECT * FROM meal_table WHERE meal_id =:mealId")
+    suspend fun getMeal(mealId: Int): MealEntity
 
 
     @Transaction
     @Update
-    suspend fun updateMeal(meal: Meal)
+    suspend fun updateMeal(meal: MealEntity)
 
     @Transaction
     @Delete
-    suspend fun deleteMeal(meal: Meal)
+    suspend fun deleteMeal(meal: MealEntity)
 }

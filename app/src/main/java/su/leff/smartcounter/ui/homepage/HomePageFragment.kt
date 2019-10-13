@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import su.leff.smartcounter.colorer.ResourceManager
 import su.leff.smartcounter.InjectorUtils
+import su.leff.smartcounter.database.entity.food.Food
 import su.leff.smartcounter.viewmodels.FoodViewModel
 
 class HomePageFragment : Fragment() {
@@ -82,6 +83,13 @@ class HomePageFragment : Fragment() {
         foodArrayList.add(TempFood("123", "76236", 124))
         foodArrayList.add(TempFood("123", "76236", 124))
         foodArrayList.add(TempFood("123", "76236", 124))
+
+        viewModel.insertFood(Food(0, 1, 2, 3213))
+        viewModel.insertFood(Food(1, 1, 2, 3213))
+        viewModel.insertFood(Food(2, 1, 2, 3213))
+        viewModel.insertFood(Food(3, 1, 2, 3213))
+
+        viewModel.allFood
 
         adapter = HomePageFoodAdapter(context, foodArrayList)
 

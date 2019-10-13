@@ -3,18 +3,18 @@ package su.leff.smartcounter.database.entity.food
 import androidx.room.*
 
 @Dao
-interface FoodDAO {
+public interface FoodDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFood(food: FoodEntity): Int
 
-    @Query("SELECT * FROM meal")
+    @Query("SELECT * FROM FOODTABLE")
     suspend fun fetchAllFood(): List<FoodEntity>
 
-    @Query("SELECT * FROM food WHERE id =:foodId")
+    @Query("SELECT * FROM FOODTABLE WHERE food_id =:foodId")
     suspend fun getFood(foodId: Int): FoodEntity
 
-    @Query("SELECT * FROM food WHERE mealId =:mealId")
+    @Query("SELECT * FROM FOODTABLE WHERE food_meal_id =:mealId")
     suspend fun getFoodByMeal(mealId: Int): List<FoodEntity>
 
     @Transaction

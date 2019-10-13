@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import su.leff.smartcounter.database.entity.meal.Meal
+import su.leff.smartcounter.database.entity.meal.MealEntity
 import su.leff.smartcounter.database.entity.meal.MealRepository
 
 
