@@ -82,7 +82,7 @@ class AddFoodCategoryFragment : Fragment() {
         }
 
         imgvBackButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addFoodCategoryFragment_to_homePageFragment)
+            findNavController().navigateUp()
         }
     }
 

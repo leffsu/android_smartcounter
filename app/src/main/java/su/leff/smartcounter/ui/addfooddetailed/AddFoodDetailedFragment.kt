@@ -55,7 +55,7 @@ class AddFoodDetailedFragment : Fragment() {
         setSearchBarHint("what was that?")
 
         imgvBackButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addFoodDetailedFragment_to_addFoodCategoryFragment)
+            findNavController().navigateUp()
         }
     }
 

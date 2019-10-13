@@ -3,22 +3,20 @@ package su.leff.smartcounter.ui.homepage
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.viewholder_food.view.*
 import su.leff.smartcounter.colorer.ResourceManager
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import su.leff.smartcounter.R
 
-class HomePageFoodAdapter(val context: Context?, newList: ArrayList<Food>) :
+class HomePageFoodAdapter(val context: Context?, newList: ArrayList<TempFood>) :
     RecyclerView.Adapter<HomePageFoodAdapter.FoodViewHolder>() {
 
-    private val foodList: ArrayList<Food> = ArrayList<Food>(newList)
+    private val tempFoodList: ArrayList<TempFood> = ArrayList<TempFood>(newList)
 
-    fun setFoodList(newList: ArrayList<Food>) {
-        foodList.clear()
-        foodList.addAll(newList)
+    fun setFoodList(newList: ArrayList<TempFood>) {
+        tempFoodList.clear()
+        tempFoodList.addAll(newList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
@@ -29,20 +27,20 @@ class HomePageFoodAdapter(val context: Context?, newList: ArrayList<Food>) :
     }
 
     override fun getItemCount(): Int {
-        return foodList.size
+        return tempFoodList.size
     }
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
-        holder.bind(foodList[position])
+        holder.bind(tempFoodList[position])
     }
 
 
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(food: Food) {
-            itemView.txvFoodTitle.text = food.title
-            itemView.txvFoodDescription.text = food.description
-            itemView.txvFoodCalories.text = "~ ${food.calories}kcal"
+        fun bind(tempFood: TempFood) {
+            itemView.txvFoodTitle.text = tempFood.title
+            itemView.txvFoodDescription.text = tempFood.description
+            itemView.txvFoodCalories.text = "~ ${tempFood.calories}kcal"
         }
 
         fun color() {

@@ -24,6 +24,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homePageFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
@@ -41,26 +48,11 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_addFoodCategoryFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/addFoodDetailedFragment"
         android:name="su.leff.smartcounter.ui.addfooddetailed.AddFoodDetailedFragment"
         android:label="AddFoodDetailedFragment">
-        <action
-            android:id="@+id/action_addFoodDetailedFragment_to_addFoodCategoryFragment"
-            app:destination="@id/addFoodCategoryFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_addFoodDetailedFragment_to_homePageFragment"
             app:destination="@id/homePageFragment"
@@ -68,10 +60,30 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addFoodDetailedFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/foodInfoFragment"
         android:name="su.leff.smartcounter.ui.foodinfo.FoodInfoFragment"
         android:label="FoodInfoFragment" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="su.leff.smartcounter.ui.calendar.CalendarFragment"
+        android:label="CalendarFragment" >
+        <action
+            android:id="@+id/action_calendarFragment_to_addFoodCategoryFragment"
+            app:destination="@id/addFoodCategoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>

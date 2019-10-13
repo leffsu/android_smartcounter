@@ -59,6 +59,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation "androidx.navigation:navigation-fragment-ktx:2.2.0-beta01"
     implementation "androidx.navigation:navigation-ui-ktx:2.2.0-beta01"
+    implementation 'com.github.tizisdeepan:eventscalendar:1.6.1'
 
 //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-core:0.9.27'
 //    debugImplementation 'com.willowtreeapps.hyperion:hyperion-attr:0.9.27'

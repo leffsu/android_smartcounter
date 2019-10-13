@@ -1,2 +1,2 @@
-include ':app', ':database', ':sharedpreferences', ':network', ':orchestrator', ':basemodule', ':notification', ':fancywalkthroughlib', ':resourcemanager', ':validator', ':foodcalculator'
+include ':app', ':database', ':sharedpreferences', ':network', ':orchestrator', ':basemodule', ':notification', ':fancywalkthroughlib', ':resourcemanager', ':validator', ':foodcalculator', ':eventscalendar'
 rootProject.name='Smart Counter'
