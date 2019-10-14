@@ -7,8 +7,8 @@ class FoodRepository(private val mDao: FoodDAO) {
 
     // todo https://jacquessmuts.github.io/post/modularization_room/
 
-    suspend fun insertFood(food: Food): Int {
-        return mDao.insertFood(FoodEntity.from(food))
+    suspend fun insertFood(food: Food) {
+        mDao.insertFood(FoodEntity.from(food))
     }
 
     suspend fun fetchAllFood(): List<Food> {

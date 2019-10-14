@@ -6,8 +6,7 @@ import androidx.room.*
 interface MealDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMeal(meal: MealEntity): Int?
-
+    suspend fun insertMeal(meal: MealEntity)
 
     @Query("SELECT * FROM meal_table")
     suspend fun fetchAllMeal(): List<MealEntity>

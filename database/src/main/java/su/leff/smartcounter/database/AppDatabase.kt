@@ -15,6 +15,7 @@ import su.leff.smartcounter.database.entity.meal.MealDAO
 @Database(entities = [FoodEntity::class, MealEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun foodDAO(): FoodDAO
     abstract fun mealDAO(): MealDAO
 

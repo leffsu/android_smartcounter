@@ -2,8 +2,8 @@ package su.leff.smartcounter.database.entity.meal
 
 class MealRepository(private val mDao: MealDAO) {
 
-    suspend fun insertMeal(meal: Meal): Int? {
-        return mDao.insertMeal(MealEntity.from(meal))
+    suspend fun insertMeal(meal: Meal) {
+        mDao.insertMeal(MealEntity.from(meal))
     }
 
 
