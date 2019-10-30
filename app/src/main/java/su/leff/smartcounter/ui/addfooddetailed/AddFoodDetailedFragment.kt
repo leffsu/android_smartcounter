@@ -51,7 +51,14 @@ class AddFoodDetailedFragment : Fragment() {
         val addFoodDetailedAdapter = AddFoodDetailedAdapter(activity, arrayList)
         recyclerFood.adapter = addFoodDetailedAdapter
 
-        edtSearchBar.doAfterTextChanged { addFoodDetailedAdapter.search(edtSearchBar.text.toString()) }
+        edtSearchBar.doAfterTextChanged {
+            val text = edtSearchBar.text.toString()
+            if(text.length==1 && text == " "){
+                edtSearchBar.setText("")
+            } else {
+                addFoodDetailedAdapter.search(text)
+            }
+        }
 
         setTitle("snacky snacks")
         setSearchBarHint("what was that?")
