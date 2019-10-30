@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -34,28 +36,32 @@ class AddFoodDetailedFragment : Fragment() {
         }
 
         val arrayList = ArrayList<FoodDetailed>()
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
-        arrayList.add(FoodDetailed("123", "123", 124124))
+        arrayList.add(FoodDetailed("Плов", "123", 124124))
+        arrayList.add(FoodDetailed("Рис", "123", 124124))
+        arrayList.add(FoodDetailed("Мясо", "123", 124124))
+        arrayList.add(FoodDetailed("Суп", "123", 124124))
+        arrayList.add(FoodDetailed("Кот", "123", 124124))
+        arrayList.add(FoodDetailed("Собака", "123", 124124))
+        arrayList.add(FoodDetailed("Рыба", "123", 124124))
+        arrayList.add(FoodDetailed("Утка", "123", 124124))
+        arrayList.add(FoodDetailed("Знания", "123", 124124))
 
         recyclerFood.layoutManager = LinearLayoutManager(context)
 
         val addFoodDetailedAdapter = AddFoodDetailedAdapter(activity, arrayList)
         recyclerFood.adapter = addFoodDetailedAdapter
 
+        edtSearchBar.doAfterTextChanged { addFoodDetailedAdapter.search(edtSearchBar.text.toString()) }
+
         setTitle("snacky snacks")
         setSearchBarHint("what was that?")
 
         imgvBackButton.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        imgvScan.setOnClickListener {
+            findNavController().navigate(R.id.action_addFoodDetailedFragment_to_QRScanFragment)
         }
     }
 

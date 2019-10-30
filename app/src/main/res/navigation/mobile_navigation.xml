@@ -69,6 +69,14 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addFoodDetailedFragment_to_QRScanFragment"
+            app:destination="@id/QRScanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false"/>
     </fragment>
     <fragment
         android:id="@+id/foodInfoFragment"
@@ -86,4 +94,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/QRScanFragment"
+        android:name="su.leff.smartcounter.ui.qrscan.QRScanFragment"
+        android:label="QRScanFragment" />
 </navigation>

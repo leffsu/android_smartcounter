@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.viewholder_food.view.*
 import su.leff.smartcounter.colorer.ResourceManager
@@ -12,7 +13,7 @@ import su.leff.smartcounter.ui.homepage.HomePageFoodAdapter
 
 class AddFoodDetailedAdapter(val context: Context?, newList: ArrayList<FoodDetailed>) :
     RecyclerView.Adapter<AddFoodDetailedAdapter.FoodViewHolder>() {
-
+    private val cachedList = ArrayList(newList)
     private val foodList: ArrayList<FoodDetailed> = ArrayList<FoodDetailed>(newList)
 
     fun setFoodList(newList: ArrayList<FoodDetailed>) {
@@ -21,10 +22,26 @@ class AddFoodDetailedAdapter(val context: Context?, newList: ArrayList<FoodDetai
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
-        val holder = FoodViewHolder(LayoutInflater.from(context).inflate(R.layout.viewholder_food, parent, false))
+        val holder = FoodViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.viewholder_food,
+                parent,
+                false
+            )
+        )
+
         holder.color()
-        holder.itemView.cardViewFood.setOnClickListener {  }
+        holder.itemView.cardViewFood.setOnClickListener {
+            Toast.makeText(context, "${foodList[holder.adapterPosition].title}", Toast.LENGTH_SHORT).show()
+        }
         return holder
+    }
+
+    fun search(string: String) {
+        val newList = cachedList.filter { foodDetailed -> foodDetailed.title.toLowerCase().contains(string.toLowerCase()) }
+        foodList.clear()
+        foodList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +63,11 @@ class AddFoodDetailedAdapter(val context: Context?, newList: ArrayList<FoodDetai
 
         fun color() {
             context?.applicationContext?.let {
-                itemView.cardViewFood.setCardBackgroundColor(ResourceManager.getItemBackgroundColor(it))
+                itemView.cardViewFood.setCardBackgroundColor(
+                    ResourceManager.getItemBackgroundColor(
+                        it
+                    )
+                )
                 itemView.txvFoodTitle.setTextColor(ResourceManager.getUsualTextColorColor(it))
                 itemView.txvFoodDescription.setTextColor(ResourceManager.getOrangeAccentColor(it))
                 itemView.txvFoodCalories.setTextColor(ResourceManager.getUsualTextColorColor(it))
