@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "meal_table")
 data class MealEntity(
-    @PrimaryKey @NonNull @ColumnInfo(name = "meal_id") val id: Int,
+    @PrimaryKey @NonNull @ColumnInfo(name = "meal_id") val id: Long,
     @ColumnInfo(name = "meal_timestamp") @NonNull val timestamp: Long
 ) {
     fun toMeal(): Meal {
@@ -46,6 +46,11 @@ data class MealEntity(
 }
 
 data class Meal(
-    val id: Int,
-    val timestamp: Long
-)
+    val id: Long,
+    val timestamp: Long,
+    var title: String,
+    var description: String,
+    var calories: Long
+) {
+    constructor(id: Long, timestamp: Long) : this(id, timestamp, "", "", 0L)
+}

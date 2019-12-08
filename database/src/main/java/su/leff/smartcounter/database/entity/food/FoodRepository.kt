@@ -1,11 +1,10 @@
 package su.leff.smartcounter.database.entity.food
 
 import androidx.lifecycle.Transformations
+import java.util.*
 
 
 class FoodRepository(private val mDao: FoodDAO) {
-
-    // todo https://jacquessmuts.github.io/post/modularization_room/
 
     suspend fun insertFood(food: Food) {
         mDao.insertFood(FoodEntity.from(food))
@@ -15,11 +14,11 @@ class FoodRepository(private val mDao: FoodDAO) {
         return FoodEntity.toFood(mDao.fetchAllFood())
     }
 
-    suspend fun getFood(foodId: Int): Food {
+    suspend fun getFood(foodId: Long): Food {
         return mDao.getFood(foodId).toFood()
     }
 
-    suspend fun getFoodByMeal(mealId: Int): List<Food> {
+    suspend fun getFoodByMeal(mealId: Long): List<Food> {
         return FoodEntity.toFood(mDao.getFoodByMeal(mealId))
     }
 
@@ -29,17 +28,5 @@ class FoodRepository(private val mDao: FoodDAO) {
 
     suspend fun deleteFood(food: Food) {
         return mDao.deleteFood(FoodEntity.from(food))
-    }
-
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var instance: FoodRepository? = null
-
-        fun getInstance(foodDAO: FoodDAO) =
-            instance ?: synchronized(this) {
-                instance ?: FoodRepository(foodDAO).also { instance = it }
-            }
     }
 }

@@ -12,6 +12,9 @@ interface MealDAO {
     suspend fun fetchAllMeal(): List<MealEntity>
 
 
+    @Query("SELECT * FROM meal_table WHERE meal_timestamp > :timestampStart AND meal_timestamp < :timestampEnd")
+    suspend fun getAllMealsByDay(timestampStart: Long, timestampEnd: Long): List<MealEntity>
+
     @Query("SELECT * FROM meal_table WHERE meal_id =:mealId")
     suspend fun getMeal(mealId: Int): MealEntity
 

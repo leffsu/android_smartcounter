@@ -1,38 +1,38 @@
 package su.leff.smartcounter.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import su.leff.smartcounter.database.entity.meal.Meal
-import su.leff.smartcounter.database.entity.meal.MealEntity
 import su.leff.smartcounter.database.entity.meal.MealRepository
 
 
-class MealViewModel(private val foodRepository: MealRepository) : ViewModel() {
+class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
-    private val food = MediatorLiveData<List<Meal>>()
+    private val meals = MutableLiveData<List<Meal>>()
 
-    val allMeals: LiveData<List<Meal>> = food  // 1
+    val allMeals: LiveData<List<Meal>> = meals  // 1
 
     fun allTasks() = viewModelScope.launch {
-        food.postValue(foodRepository.fetchAllMeal())   // 3
+        meals.postValue(mealRepository.fetchAllMeal())   // 3
     }
 
-    fun insertFood(t: Meal) = viewModelScope.launch {
-        foodRepository.insertMeal(t)
+    fun mealByDay(timestamp: Long) = viewModelScope.launch {
+        meals.postValue(mealRepository.getMealByDay(timestamp))
     }
 
-    fun updateFood(t: Meal) = viewModelScope.launch {
-        foodRepository.updateMeal(t)
+    fun insertMeal(t: Meal) = viewModelScope.launch {
+        mealRepository.insertMeal(t)
     }
 
-    fun deleteFood(t: Meal) = viewModelScope.launch {
-        foodRepository.deleteMeal(t)
+    fun updateMeal(t: Meal) = viewModelScope.launch {
+        mealRepository.updateMeal(t)
+    }
+
+    fun deleteMeal(t: Meal) = viewModelScope.launch {
+        mealRepository.deleteMeal(t)
     }
 
     fun getMeal(t: Int) = viewModelScope.launch {
-        foodRepository.getMeal(t)
+        mealRepository.getMeal(t)
     }
 }

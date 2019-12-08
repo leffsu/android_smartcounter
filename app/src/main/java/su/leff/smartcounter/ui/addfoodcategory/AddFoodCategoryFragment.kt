@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+//import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_addfoodcategory.*
 import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
@@ -20,10 +22,8 @@ class AddFoodCategoryFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_addfoodcategory, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         activity?.applicationContext?.let {
             addfoodcategory_background.setBackgroundColor(ResourceManager.getBackgroundColor(it))

@@ -8,14 +8,17 @@ public interface FoodDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFood(food: FoodEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(food: List<FoodEntity>)
+
     @Query("SELECT * FROM FOODTABLE")
     suspend fun fetchAllFood(): List<FoodEntity>
 
     @Query("SELECT * FROM FOODTABLE WHERE food_id =:foodId")
-    suspend fun getFood(foodId: Int): FoodEntity
+    suspend fun getFood(foodId: Long): FoodEntity
 
     @Query("SELECT * FROM FOODTABLE WHERE food_meal_id =:mealId")
-    suspend fun getFoodByMeal(mealId: Int): List<FoodEntity>
+    suspend fun getFoodByMeal(mealId: Long): List<FoodEntity>
 
     @Transaction
     @Update

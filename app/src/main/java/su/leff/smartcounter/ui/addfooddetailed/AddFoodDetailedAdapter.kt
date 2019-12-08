@@ -11,30 +11,33 @@ import su.leff.smartcounter.colorer.ResourceManager
 import su.leff.smartcounter.R
 import su.leff.smartcounter.ui.homepage.HomePageFoodAdapter
 
-class AddFoodDetailedAdapter(val context: Context?, newList: ArrayList<FoodDetailed>) :
+class AddFoodDetailedAdapter(
+    private val context: Context?,
+    private val newList: List<FoodDetailed>,
+    private val receiver: IAddFoodPickReceiver) :
     RecyclerView.Adapter<AddFoodDetailedAdapter.FoodViewHolder>() {
     private val cachedList = ArrayList(newList)
     private val foodList: ArrayList<FoodDetailed> = ArrayList<FoodDetailed>(newList)
 
-    fun setFoodList(newList: ArrayList<FoodDetailed>) {
+    fun setFoodList(newList: List<FoodDetailed>) {
         foodList.clear()
         foodList.addAll(newList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
-        val holder = FoodViewHolder(
-            LayoutInflater.from(context).inflate(
+
+        val holder = FoodViewHolder(// 1
+            LayoutInflater.from(context).inflate(// 2
                 R.layout.viewholder_food,
                 parent,
                 false
             )
         )
-
-        holder.color()
-        holder.itemView.cardViewFood.setOnClickListener {
-            Toast.makeText(context, "${foodList[holder.adapterPosition].title}", Toast.LENGTH_SHORT).show()
+        holder.color()// 3
+        holder.itemView.cardViewFood.setOnClickListener {// 4
+            receiver.process(foodList[holder.adapterPosition])
         }
-        return holder
+        return holder// 5
     }
 
     fun search(string: String) {

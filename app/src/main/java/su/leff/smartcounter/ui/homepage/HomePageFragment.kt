@@ -1,35 +1,35 @@
 package su.leff.smartcounter.ui.homepage
 
+import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import su.leff.smartcounter.R
-import android.content.res.ColorStateList
-import android.os.Build
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.architecture.ext.viewModel
+import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
-import su.leff.smartcounter.InjectorUtils
-import su.leff.smartcounter.database.entity.food.Food
+import su.leff.smartcounter.database.entity.meal.MealEntity
 import su.leff.smartcounter.viewmodels.FoodViewModel
+import su.leff.smartcounter.viewmodels.MealViewModel
 
 class HomePageFragment : Fragment() {
 
-    private val viewModel: FoodViewModel by viewModels {
-        InjectorUtils.provideFoodViewModelFactory(requireContext())
-    }
+    val mealViewModel by viewModel<MealViewModel>()
+
+    val foodViewModel by viewModel<FoodViewModel>()
 
     var adapter: HomePageFoodAdapter? = null
 
     val ANIMATION_TIME = 2000
 
     var chartClicked = 0L
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,34 +66,19 @@ class HomePageFragment : Fragment() {
         initGraph()
         setWelcomeMessage("hello there, Michael")
 
+        mealViewModel.insertMeal(MealEntity(20, 50).toMeal())
+
         recyclerFood.layoutManager = LinearLayoutManager(context)
+        mealViewModel.allTasks()
 
-
-        val foodArrayList = ArrayList<TempFood>()
-
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-        foodArrayList.add(TempFood("123", "76236", 124))
-
-        viewModel.insertFood(Food(0, 1, 2, 3213))
-        viewModel.insertFood(Food(1, 1, 2, 3213))
-        viewModel.insertFood(Food(2, 1, 2, 3213))
-        viewModel.insertFood(Food(3, 1, 2, 3213))
-
-        viewModel.allFood
-
-        adapter = HomePageFoodAdapter(context, foodArrayList)
-
-        recyclerFood.adapter = adapter
+        mealViewModel.allMeals.observe(viewLifecycleOwner, Observer { meals ->
+            if (adapter == null) {
+                adapter = HomePageFoodAdapter(context, meals)
+                recyclerFood.adapter = adapter
+            } else {
+                adapter?.setFoodList(meals)
+            }
+        })
 
         fabAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_addFoodCategoryFragment)

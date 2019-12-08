@@ -8,15 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.viewholder_food.view.*
 import su.leff.smartcounter.colorer.ResourceManager
 import su.leff.smartcounter.R
+import su.leff.smartcounter.database.entity.meal.Meal
 
-class HomePageFoodAdapter(val context: Context?, newList: ArrayList<TempFood>) :
+class HomePageFoodAdapter(val context: Context?, newList: List<Meal>) :
     RecyclerView.Adapter<HomePageFoodAdapter.FoodViewHolder>() {
+    init {
 
-    private val tempFoodList: ArrayList<TempFood> = ArrayList<TempFood>(newList)
+    }
 
-    fun setFoodList(newList: ArrayList<TempFood>) {
+    private val tempFoodList: ArrayList<Meal> = ArrayList<Meal>(newList)
+
+    fun setFoodList(newList: List<Meal>) {
         tempFoodList.clear()
         tempFoodList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
@@ -37,8 +42,8 @@ class HomePageFoodAdapter(val context: Context?, newList: ArrayList<TempFood>) :
 
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(tempFood: TempFood) {
-            itemView.txvFoodTitle.text = tempFood.title
+        fun bind(tempFood: Meal) {
+            itemView.txvFoodTitle.text = tempFood.id.toString()
             itemView.txvFoodDescription.text = tempFood.description
             itemView.txvFoodCalories.text = "~ ${tempFood.calories}kcal"
         }

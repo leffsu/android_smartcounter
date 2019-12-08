@@ -1,12 +1,8 @@
 package su.leff.smartcounter.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import su.leff.smartcounter.database.entity.food.Food
-import su.leff.smartcounter.database.entity.food.FoodEntity
 import su.leff.smartcounter.database.entity.food.FoodRepository
 
 
@@ -14,7 +10,7 @@ class FoodViewModel(private val foodRepository: FoodRepository) : ViewModel() {
 
     private val food = MediatorLiveData<List<Food>>()
 
-    val allFood: LiveData<List<Food>> = food  // 1
+    val allFood: MutableLiveData<List<Food>> = food  // 1
 
     fun allFood() = viewModelScope.launch {
         food.postValue(foodRepository.fetchAllFood())   // 3
@@ -32,7 +28,15 @@ class FoodViewModel(private val foodRepository: FoodRepository) : ViewModel() {
         foodRepository.deleteFood(t)
     }
 
-    fun getFood(t: Int) = viewModelScope.launch {
+    fun getFood(t: Long) = viewModelScope.launch {
         foodRepository.getFood(t)
+    }
+
+    fun getFoodByDay(timestamp: Long) = viewModelScope.launch {
+        foodRepository.fetchAllFood()
+    }
+
+    fun getFoodByMeal(mealId: Long) = viewModelScope.launch {
+        foodRepository.getFoodByMeal(mealId)
     }
 }

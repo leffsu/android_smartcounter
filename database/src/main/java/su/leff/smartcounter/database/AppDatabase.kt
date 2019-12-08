@@ -11,13 +11,19 @@ import su.leff.smartcounter.database.entity.food.FoodEntity
 import su.leff.smartcounter.database.entity.food.FoodDAO
 import su.leff.smartcounter.database.entity.meal.MealEntity
 import su.leff.smartcounter.database.entity.meal.MealDAO
+import su.leff.smartcounter.database.entity.foodtype.FoodTypeDAO
+import su.leff.smartcounter.database.entity.foodtype.FoodTypeEntity
+import su.leff.smartcounter.database.entity.foodtype.population
+import java.util.concurrent.Executors
 
-@Database(entities = [FoodEntity::class, MealEntity::class], version = 1, exportSchema = false)
+
+@Database(entities = [FoodEntity::class, MealEntity::class, FoodTypeEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun foodDAO(): FoodDAO
     abstract fun mealDAO(): MealDAO
+    abstract fun foodTypeDAO(): FoodTypeDAO
 
     companion object {
 
@@ -39,6 +45,9 @@ abstract class AppDatabase : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
+                        Executors.newSingleThreadScheduledExecutor().execute(Runnable {
+                            getInstance(context).foodTypeDAO().insertAll(population)
+                        })
                     }
                 })
                 .build()
