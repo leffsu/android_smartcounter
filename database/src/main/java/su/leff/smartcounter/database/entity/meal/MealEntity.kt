@@ -7,16 +7,17 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "meal_table")
 data class MealEntity(
-    @PrimaryKey @NonNull @ColumnInfo(name = "meal_id") val id: Long,
-    @ColumnInfo(name = "meal_timestamp") @NonNull val timestamp: Long
+    @PrimaryKey(autoGenerate = true) @NonNull @ColumnInfo(name = "meal_id") val id: Long,
+    @ColumnInfo(name = "meal_timestamp") @NonNull val timestamp: Long,
+    @ColumnInfo(name = "meal_type") @NonNull val mealType: Long
 ) {
     fun toMeal(): Meal {
-        return Meal(id, timestamp)
+        return Meal(id, timestamp, mealType)
     }
 
     companion object {
         fun from(user: Meal): MealEntity {
-            return MealEntity(user.id, user.timestamp)
+            return MealEntity(0L, user.timestamp, user.mealType)
         }
 
         fun from(meals: List<Meal>): List<MealEntity> {
@@ -31,7 +32,7 @@ data class MealEntity(
 
 
         fun toMeal(mealEntity: MealEntity): Meal {
-            return Meal(mealEntity.id, mealEntity.timestamp)
+            return Meal(mealEntity.id, mealEntity.timestamp, mealEntity.mealType)
         }
 
         fun toMeal(entities: List<MealEntity>): List<Meal> {
@@ -48,9 +49,17 @@ data class MealEntity(
 data class Meal(
     val id: Long,
     val timestamp: Long,
+    var mealType: Long,
     var title: String,
     var description: String,
     var calories: Long
 ) {
-    constructor(id: Long, timestamp: Long) : this(id, timestamp, "", "", 0L)
+    constructor(id: Long, timestamp: Long, mealType: Long) : this(
+        id,
+        timestamp,
+        mealType,
+        "",
+        "",
+        0L
+    )
 }

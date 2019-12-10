@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "FOODTABLE")
 data class FoodEntity(
-    @PrimaryKey @NonNull @ColumnInfo(name = "food_id") val id: Int,
-    @NonNull @ColumnInfo(name = "food_meal_id") val mealId: Int,
-    @NonNull @ColumnInfo(name = "food_type") val foodType: Int,
-    @NonNull @ColumnInfo(name = "food_amount") val amount: Int
+    @PrimaryKey(autoGenerate = true) @NonNull @ColumnInfo(name = "food_id") val id: Long,
+    @NonNull @ColumnInfo(name = "food_meal_id") val mealId: Long,
+    @NonNull @ColumnInfo(name = "food_type") val foodType: Long,
+    @NonNull @ColumnInfo(name = "food_amount") val amount: Long
 ) {
 
     fun toFood(): Food {
@@ -19,7 +19,7 @@ data class FoodEntity(
 
     companion object {
         fun from(user: Food): FoodEntity {
-            return FoodEntity(user.id, user.mealId, user.foodType, user.amount)
+            return FoodEntity(0L, user.mealId, user.foodType, user.amount)
         }
 
         fun from(foods: List<Food>): List<FoodEntity> {
@@ -44,8 +44,8 @@ data class FoodEntity(
 }
 
 data class Food(
-    val id: Int,
-    val mealId: Int,
-    val foodType: Int,
-    val amount: Int
+    val id: Long,
+    val mealId: Long,
+    val foodType: Long,
+    val amount: Long
 )

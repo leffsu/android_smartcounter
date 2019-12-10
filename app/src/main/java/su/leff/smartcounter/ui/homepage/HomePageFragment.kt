@@ -16,6 +16,7 @@ import org.koin.android.architecture.ext.viewModel
 import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
 import su.leff.smartcounter.database.entity.meal.MealEntity
+import su.leff.smartcounter.viewmodels.FoodTypeViewModel
 import su.leff.smartcounter.viewmodels.FoodViewModel
 import su.leff.smartcounter.viewmodels.MealViewModel
 
@@ -24,6 +25,8 @@ class HomePageFragment : Fragment() {
     val mealViewModel by viewModel<MealViewModel>()
 
     val foodViewModel by viewModel<FoodViewModel>()
+
+    val foodTypeViewModel by viewModel<FoodTypeViewModel>()
 
     var adapter: HomePageFoodAdapter? = null
 
@@ -41,6 +44,11 @@ class HomePageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mealViewModel.allTasks()
+        foodViewModel.allFood()
+        foodTypeViewModel.allTasks()
+
         activity?.applicationContext?.let {
             login_background.setBackgroundColor(ResourceManager.getBackgroundColor(it))
             txvWelcomeMessage.setTextColor(ResourceManager.getUsualTextColorColor(it))
@@ -66,20 +74,6 @@ class HomePageFragment : Fragment() {
         initGraph()
         setWelcomeMessage("hello there, Michael")
 
-        mealViewModel.insertMeal(MealEntity(20, 50).toMeal())
-
-        recyclerFood.layoutManager = LinearLayoutManager(context)
-        mealViewModel.allTasks()
-
-        mealViewModel.allMeals.observe(viewLifecycleOwner, Observer { meals ->
-            if (adapter == null) {
-                adapter = HomePageFoodAdapter(context, meals)
-                recyclerFood.adapter = adapter
-            } else {
-                adapter?.setFoodList(meals)
-            }
-        })
-
         fabAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_addFoodCategoryFragment)
         }
@@ -99,6 +93,37 @@ class HomePageFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        recyclerFood.layoutManager = LinearLayoutManager(context)
+
+        mealViewModel.allMeals.observe(viewLifecycleOwner, Observer { meals ->
+            for (meal in meals) {
+                for (food in foodViewModel.allFood.value!!) {
+                    for (foodtype in foodTypeViewModel.allMeals.value!!) {
+                        if (food.mealId == meal.id && food.foodType == foodtype.id) {
+                            meal.description += foodtype.title + ", "
+                            meal.calories += foodtype.calories
+                        }
+                    }
+                }
+            }
+
+            if (adapter == null) {
+                activity?.runOnUiThread {
+                    adapter = HomePageFoodAdapter(context, meals)
+                }
+            } else {
+                activity?.runOnUiThread {
+                    adapter?.setFoodList(meals)
+                }
+            }
+            recyclerFood.adapter = adapter
+        })
+        mealViewModel.allTasks()
     }
 
     private fun setWelcomeMessage(value: String) {
