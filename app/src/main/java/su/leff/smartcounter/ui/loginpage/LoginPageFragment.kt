@@ -1,15 +1,23 @@
 package su.leff.smartcounter.ui.loginpage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
 import kotlinx.android.synthetic.main.fragment_loginpage.*
 import su.leff.smartcounter.R
+import su.leff.smartcounter.util.BaseFragment
 import su.leff.smartcounter.colorer.ResourceManager
 
-class LoginPageFragment : Fragment() {
+
+class LoginPageFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,24 +28,56 @@ class LoginPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val account = GoogleSignIn.getLastSignedInAccount(context)
 
+        if (account != null) {
+            findNavController().navigate(R.id.action_loginPageFragment_to_homePageFragment)
+            return
+        }
 
         activity?.applicationContext?.let {
             login_background.setBackgroundColor(ResourceManager.getBackgroundColor(it))
             txvSmartCounter.setTextColor(ResourceManager.getUsualTextColorColor(it))
             txvHelloThere.setTextColor(ResourceManager.getUsualTextColorColor(it))
-            txvLoginViaGoogle.setTextColor(ResourceManager.getUsualTextColorColor(it))
-            txvLogin.setTextColor(ResourceManager.getUsualTextColorColor(it))
-            edtYourName.setTextColor(ResourceManager.getUsualTextColorColor(it))
-            edtYourName.setHintTextColor(ResourceManager.getUsualTextColorColor(it))
+
         }
 
         setWelcomeMessage("hello there\r\nnice to see you here")
         setAppName("Smart Counter")
-        setLoginViaGoogle("Login via Google")
-        setLoginButtonText("Next")
-        edtYourName.hint = "your name"
 
+        sign_in_button.setSize(SignInButton.SIZE_WIDE)
+
+        sign_in_button.setOnClickListener {
+            val gso =
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build()
+
+            val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+            val intent = mGoogleSignInClient.signInIntent
+            startActivityForResult(intent, 1313)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1313) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            try {
+                val task =
+                    GoogleSignIn.getSignedInAccountFromIntent(data)
+                val result = task.getResult(ApiException::class.java)
+                shared.firstName = result?.givenName ?: ""
+                shared.secondName = result?.familyName ?: ""
+                shared.email = result?.email ?: ""
+                shared.accountId = result?.id ?: ""
+                findNavController().navigate(R.id.action_loginPageFragment_to_homePageFragment)
+            } catch (apiException: ApiException) {
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     fun setWelcomeMessage(value: String) {
@@ -46,13 +86,5 @@ class LoginPageFragment : Fragment() {
 
     fun setAppName(value: String) {
         txvSmartCounter.text = value
-    }
-
-    fun setLoginViaGoogle(value: String) {
-        txvLoginViaGoogle.text = value
-    }
-
-    fun setLoginButtonText(value: String) {
-        txvLogin.text = value
     }
 }

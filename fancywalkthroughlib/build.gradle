@@ -32,6 +32,4 @@ dependencies {
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     testImplementation 'junit:junit:4.12'
     implementation 'androidx.cardview:cardview:1.0.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

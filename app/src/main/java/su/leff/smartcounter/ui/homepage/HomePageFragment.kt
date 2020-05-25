@@ -7,26 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.android.architecture.ext.viewModel
 import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
-import su.leff.smartcounter.database.entity.meal.MealEntity
-import su.leff.smartcounter.viewmodels.FoodTypeViewModel
-import su.leff.smartcounter.viewmodels.FoodViewModel
-import su.leff.smartcounter.viewmodels.MealViewModel
+import su.leff.smartcounter.util.BaseFragment
 
-class HomePageFragment : Fragment() {
 
-    val mealViewModel by viewModel<MealViewModel>()
+class HomePageFragment : BaseFragment() {
 
-    val foodViewModel by viewModel<FoodViewModel>()
-
-    val foodTypeViewModel by viewModel<FoodTypeViewModel>()
+//    val mealViewModel by viewModel<MealViewModel>()
+//
+//    val foodViewModel by viewModel<FoodViewModel>()
+//
+//    val foodTypeViewModel by viewModel<FoodTypeViewModel>()
 
     var adapter: HomePageFoodAdapter? = null
 
@@ -39,15 +35,17 @@ class HomePageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mealViewModel.allTasks()
-        foodViewModel.allFood()
-        foodTypeViewModel.allTasks()
+
+//        mealViewModel.allTasks()
+//        foodViewModel.allFood()
+//        foodTypeViewModel.allTasks()
 
         activity?.applicationContext?.let {
             login_background.setBackgroundColor(ResourceManager.getBackgroundColor(it))
@@ -72,7 +70,7 @@ class HomePageFragment : Fragment() {
         setFatCount("Fat (200/240)")
         setProteinCount("Protein (120/240)")
         initGraph()
-        setWelcomeMessage("hello there, Michael")
+        setWelcomeMessage("hello there, ${shared.firstName}")
 
         fabAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homePageFragment_to_addFoodCategoryFragment)
@@ -92,7 +90,6 @@ class HomePageFragment : Fragment() {
                 slimChart.playStartAnimation()
             }
         }
-
     }
 
     override fun onResume() {
@@ -100,30 +97,30 @@ class HomePageFragment : Fragment() {
 
         recyclerFood.layoutManager = LinearLayoutManager(context)
 
-        mealViewModel.allMeals.observe(viewLifecycleOwner, Observer { meals ->
-            for (meal in meals) {
-                for (food in foodViewModel.allFood.value!!) {
-                    for (foodtype in foodTypeViewModel.allMeals.value!!) {
-                        if (food.mealId == meal.id && food.foodType == foodtype.id) {
-                            meal.description += foodtype.title + ", "
-                            meal.calories += foodtype.calories
-                        }
-                    }
-                }
-            }
-
-            if (adapter == null) {
-                activity?.runOnUiThread {
-                    adapter = HomePageFoodAdapter(context, meals)
-                }
-            } else {
-                activity?.runOnUiThread {
-                    adapter?.setFoodList(meals)
-                }
-            }
-            recyclerFood.adapter = adapter
-        })
-        mealViewModel.allTasks()
+//        mealViewModel.allMeals.observe(viewLifecycleOwner, Observer { meals ->
+//            for (meal in meals) {
+//                for (food in foodViewModel.allFood.value!!) {
+//                    for (foodtype in foodTypeViewModel.allMeals.value!!) {
+//                        if (food.mealId == meal.id && food.foodType == foodtype.id) {
+//                            meal.description += foodtype.title + ", "
+//                            meal.calories += foodtype.calories
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if (adapter == null) {
+//                activity?.runOnUiThread {
+//                    adapter = HomePageFoodAdapter(context, meals)
+//                }
+//            } else {
+//                activity?.runOnUiThread {
+//                    adapter?.setFoodList(meals)
+//                }
+//            }
+//            recyclerFood.adapter = adapter
+//        })
+//        mealViewModel.allTasks()
     }
 
     private fun setWelcomeMessage(value: String) {

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import su.leff.smartcounter.database.entity.food.Food
 
 @Entity(tableName = "meal_table")
 data class MealEntity(
@@ -52,7 +53,8 @@ data class Meal(
     var mealType: Long,
     var title: String,
     var description: String,
-    var calories: Long
+    var calories: Long,
+    val foods: ArrayList<Food> = ArrayList()
 ) {
     constructor(id: Long, timestamp: Long, mealType: Long) : this(
         id,

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/homePageFragment">
+    app:startDestination="@id/loginPageFragment">
     <fragment
         android:id="@+id/homePageFragment"
         android:name="su.leff.smartcounter.ui.homepage.HomePageFragment"
@@ -35,7 +35,11 @@
     <fragment
         android:id="@+id/loginPageFragment"
         android:name="su.leff.smartcounter.ui.loginpage.LoginPageFragment"
-        android:label="LoginPageFragment" />
+        android:label="LoginPageFragment" >
+        <action
+            android:id="@+id/action_loginPageFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addFoodCategoryFragment"
         android:name="su.leff.smartcounter.ui.addfoodcategory.AddFoodCategoryFragment"
