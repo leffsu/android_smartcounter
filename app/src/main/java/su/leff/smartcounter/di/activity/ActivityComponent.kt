@@ -1,7 +1,9 @@
-package com.daily.lifehacks.app.di.activity
+package su.leff.smartcounter.di.activity
 
-import com.daily.lifehacks.app.di.application.AppComponent
+import su.leff.smartcounter.di.application.AppComponent
 import dagger.Component
+import su.leff.smartcounter.di.activity.ActivityModule
+import su.leff.smartcounter.di.activity.ActivityScope
 import su.leff.smartcounter.ui.MainActivity
 
 @ActivityScope

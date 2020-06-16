@@ -1,4 +1,4 @@
-package com.daily.lifehacks.app.di.activity
+package su.leff.smartcounter.di.activity
 
 import dagger.Module
 import su.leff.smartcounter.ui.MainActivity

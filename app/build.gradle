@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha06"
     implementation 'com.github.tizisdeepan:eventscalendar:1.6.1'
     debugImplementation 'androidx.fragment:fragment-testing:1.2.4'
+    implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.4'
 
     testImplementation 'junit:junit:4.12'
     // Optional -- Robolectric environment
@@ -78,20 +79,22 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.28.2'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-core:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-attr:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-build-config:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-crash:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-disk:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-geiger-counter:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-measurement:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-phoenix:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-recorder:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-shared-preferences:0.9.27'
-//    debugImplementation 'com.willowtreeapps.hyperion:hyperion-timber:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-core:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-attr:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-build-config:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-crash:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-disk:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-geiger-counter:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-measurement:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-phoenix:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-recorder:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-shared-preferences:0.9.27'
+    debugImplementation 'com.willowtreeapps.hyperion:hyperion-timber:0.9.27'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation "com.google.dagger:dagger:2.27"
     kapt "com.google.dagger:dagger-compiler:2.27"
     kapt 'com.google.dagger:dagger-android-processor:2.27'
+
+    implementation 'com.github.marcoscgdev:DialogSheet:2.0.9'
 }

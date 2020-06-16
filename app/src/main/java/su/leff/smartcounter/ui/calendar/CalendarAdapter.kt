@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.viewholder_food.view.*
 import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
+import su.leff.smartcounter.database.entity.meal.Meal
 
-class CalendarAdapter(val context: Context?, foodList: List<CalendarFood>) :
+class CalendarAdapter(val context: Context?, foodList: ArrayList<Meal>) :
     RecyclerView.Adapter<CalendarAdapter.CalendarFoodViewHolder>() {
 
-    val foodList: List<CalendarFood> = foodList
+    val foodList: ArrayList<Meal> = foodList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarFoodViewHolder {
         val holder = CalendarFoodViewHolder(
@@ -27,6 +28,12 @@ class CalendarAdapter(val context: Context?, foodList: List<CalendarFood>) :
         return holder
     }
 
+    fun setList(list: List<Meal>){
+        foodList.clear()
+        foodList.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return foodList.size
     }
@@ -38,10 +45,10 @@ class CalendarAdapter(val context: Context?, foodList: List<CalendarFood>) :
 
     inner class CalendarFoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(food: CalendarFood) {
-            itemView.txvFoodTitle.text = food.typeOfFood.toString()
-            itemView.txvFoodDescription.text = food.food
-            itemView.txvFoodCalories.text = "~ ${food.kcalAmount}kcal"
+        fun bind(food: Meal) {
+            itemView.txvFoodTitle.text = food.title
+            itemView.txvFoodDescription.text = food.description
+            itemView.txvFoodCalories.text = "~ ${food.calories}kcal"
         }
 
         fun color() {

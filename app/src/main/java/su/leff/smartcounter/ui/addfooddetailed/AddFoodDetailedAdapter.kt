@@ -4,52 +4,79 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.viewholder_food.view.*
 import su.leff.smartcounter.colorer.ResourceManager
 import su.leff.smartcounter.R
-import su.leff.smartcounter.ui.homepage.HomePageFoodAdapter
+import su.leff.smartcounter.database.entity.food.Food
 
 class AddFoodDetailedAdapter(
     private val context: Context?,
     private val newList: List<FoodDetailed>,
-    private val receiver: IAddFoodPickReceiver) :
+    private val receiver: IAddFoodPickReceiver
+) :
     RecyclerView.Adapter<AddFoodDetailedAdapter.FoodViewHolder>() {
     private val cachedList = ArrayList(newList)
     private val foodList: ArrayList<FoodDetailed> = ArrayList<FoodDetailed>(newList)
 
-    fun setFoodList(newList: List<FoodDetailed>) {
+    private val selectedFoodList = ArrayList<FoodDetailed>()
+    private val foodListToSelectFrom = ArrayList<FoodDetailed>()
+
+    private fun formList() {
         foodList.clear()
-        foodList.addAll(newList)
+        foodList.addAll(selectedFoodList)
+        foodList.addAll(foodListToSelectFrom)
+    }
+
+    fun setFoodList(newList: List<FoodDetailed>) {
+        foodListToSelectFrom.clear()
+        foodListToSelectFrom.addAll(newList)
+        formList()
+    }
+
+    fun setSelectedFoodList(newList: List<FoodDetailed>) {
+        selectedFoodList.clear()
+        selectedFoodList.addAll(newList)
+        formList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
 
-        val holder = FoodViewHolder(// 1
-            LayoutInflater.from(context).inflate(// 2
+        val holder = FoodViewHolder(
+            LayoutInflater.from(context).inflate(
                 R.layout.viewholder_food,
                 parent,
                 false
             )
         )
-        holder.color()// 3
-        holder.itemView.cardViewFood.setOnClickListener {// 4
-            receiver.process(foodList[holder.adapterPosition])
+
+        holder.color()
+
+        holder.itemView.cardViewFood.setOnClickListener {
+            if(!foodList[holder.adapterPosition].alreadyAdded){
+                receiver.onFoodClicked(foodList[holder.adapterPosition])
+            }
         }
-        return holder// 5
+
+        holder.itemView.btnDelete.setOnClickListener {
+            if(foodList[holder.adapterPosition].alreadyAdded) {
+                receiver.onFoodDeleted(foodList[holder.adapterPosition].originalLink as Food)
+            }
+        }
+
+        return holder
     }
 
     fun search(string: String) {
-        val newList = cachedList.filter { foodDetailed -> foodDetailed.title.toLowerCase().contains(string.toLowerCase()) }
+        val newList = cachedList.filter { foodDetailed ->
+            foodDetailed.title.toLowerCase().contains(string.toLowerCase())
+        }
         foodList.clear()
         foodList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int {
-        return foodList.size
-    }
+    override fun getItemCount(): Int = foodList.size
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         holder.bind(foodList[position])
@@ -59,6 +86,19 @@ class AddFoodDetailedAdapter(
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(food: FoodDetailed) {
+            if (food.alreadyAdded) {
+                itemView.swipe.isEnabled = true
+                itemView.rights.visibility = View.VISIBLE
+                itemView.cardViewFood.setCardBackgroundColor(
+                    context?.getColor(R.color.orangeAccentSlight) ?: 0
+                )
+            } else {
+                itemView.swipe.isEnabled = false
+                itemView.rights.visibility = View.GONE
+                itemView.cardViewFood.setCardBackgroundColor(
+                    context?.getColor(R.color.itemBackground) ?: 0
+                )
+            }
             itemView.txvFoodTitle.text = food.title
             itemView.txvFoodDescription.text = food.description
             itemView.txvFoodCalories.text = "~ ${food.calories}kcal"

@@ -19,7 +19,7 @@ data class FoodEntity(
 
     companion object {
         fun from(user: Food): FoodEntity {
-            return FoodEntity(0L, user.mealId, user.foodType, user.amount)
+            return FoodEntity(user.id, user.mealId, user.foodType, user.amount)
         }
 
         fun from(foods: List<Food>): List<FoodEntity> {

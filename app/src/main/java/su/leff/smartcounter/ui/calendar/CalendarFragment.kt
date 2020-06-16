@@ -12,11 +12,14 @@ import com.events.calendar.views.EventsCalendar
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
+import su.leff.smartcounter.database.entity.meal.Meal
+import su.leff.smartcounter.ui.homepage.HomePageFragment
+import su.leff.smartcounter.util.BaseFragment
 import java.util.*
 import java.text.SimpleDateFormat
 
 
-class CalendarFragment : Fragment(), EventsCalendar.Callback {
+class CalendarFragment : BaseFragment(), EventsCalendar.Callback {
 
     var sdf = SimpleDateFormat("yyyy-MM-dd")
 
@@ -82,19 +85,9 @@ class CalendarFragment : Fragment(), EventsCalendar.Callback {
 
         recyclerFood.layoutManager = LinearLayoutManager(activity)
 
-        val calendarFoodArray = ArrayList<CalendarFood>()
+        val data = mealViewModel.getMealOnDay(System.currentTimeMillis()) as ArrayList<Meal>
 
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-        calendarFoodArray.add(CalendarFood("breakfast", 1, 1))
-
-        val adapter = CalendarAdapter(context, calendarFoodArray)
+        val adapter = CalendarAdapter(context, data)
 
         recyclerFood.adapter = adapter
     }
@@ -113,9 +106,11 @@ class CalendarFragment : Fragment(), EventsCalendar.Callback {
     override fun onDaySelected(selectedDate: Calendar?) {
         selectedDate?.let { date ->
             setDateText(sdf.format(date.time))
+            (recyclerFood.adapter as CalendarAdapter).setList(mealViewModel.getMealOnDay(selectedDate.timeInMillis) as ArrayList<Meal>)
         }
     }
 
     override fun onMonthChanged(monthStartDate: Calendar?) {
     }
+
 }

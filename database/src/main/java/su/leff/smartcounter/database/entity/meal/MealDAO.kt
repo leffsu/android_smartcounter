@@ -6,24 +6,27 @@ import androidx.room.*
 interface MealDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMeal(meal: MealEntity)
+     fun insertMeal(meal: MealEntity)
 
     @Query("SELECT * FROM meal_table")
-    suspend fun fetchAllMeal(): List<MealEntity>
+     fun fetchAllMeal(): List<MealEntity>
 
 
     @Query("SELECT * FROM meal_table WHERE meal_timestamp > :timestampStart AND meal_timestamp < :timestampEnd")
-    suspend fun getAllMealsByDay(timestampStart: Long, timestampEnd: Long): List<MealEntity>
+     fun getAllMealsByDay(timestampStart: Long, timestampEnd: Long): List<MealEntity>
 
     @Query("SELECT * FROM meal_table WHERE meal_id =:mealId")
-    suspend fun getMeal(mealId: Int): MealEntity
+     fun getMeal(mealId: Int): MealEntity
+
+    @Query("SELECT * FROM meal_table WHERE meal_timestamp =:timestamp")
+     fun getMealByTimestamp(timestamp: Long): MealEntity
 
 
     @Transaction
     @Update
-    suspend fun updateMeal(meal: MealEntity)
+     fun updateMeal(meal: MealEntity)
 
     @Transaction
     @Delete
-    suspend fun deleteMeal(meal: MealEntity)
+     fun deleteMeal(meal: MealEntity)
 }

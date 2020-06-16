@@ -31,6 +31,9 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_homePageFragment_to_addFoodDetailedFragment"
+            app:destination="@id/addFoodDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
@@ -86,6 +89,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false"/>
+        <action
+            android:id="@+id/action_addFoodDetailedFragment_to_lol"
+            app:destination="@id/lol" />
     </fragment>
     <fragment
         android:id="@+id/foodInfoFragment"
@@ -107,4 +113,16 @@
         android:id="@+id/QRScanFragment"
         android:name="su.leff.smartcounter.ui.qrscan.QRScanFragment"
         android:label="QRScanFragment" />
+    <fragment
+        android:id="@+id/lol"
+        android:name="su.leff.smartcounter.ui.scan.ScanFragment"
+        android:label="Lol" >
+        <action
+            android:id="@+id/action_lol_to_homePageFragment"
+            app:destination="@id/homePageFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 </navigation>

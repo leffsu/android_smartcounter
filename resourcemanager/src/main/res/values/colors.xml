@@ -2,6 +2,7 @@
 <resources>
     <color name="background">#242528</color>
     <color name="orangeAccent">#F69019</color>
+    <color name="orangeAccentSlight">#50F69019</color>
     <color name="pinkAccent">#FC5185</color>
     <color name="greenAccent">#40CA58</color>
     <color name="usualTextColor">#E3E5EC</color>

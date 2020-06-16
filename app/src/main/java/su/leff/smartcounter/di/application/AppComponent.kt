@@ -1,8 +1,8 @@
-package com.daily.lifehacks.app.di.application
+package su.leff.smartcounter.di.application
 
 import dagger.Component
 import su.leff.smartcounter.MyApplication
-import javax.inject.Singleton
+import su.leff.smartcounter.di.application.AppModule
 
 @Component(
     modules = [AppModule::class]

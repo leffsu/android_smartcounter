@@ -3,13 +3,14 @@ package su.leff.smartcounter
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.daily.lifehacks.app.di.application.AppComponent
-import com.daily.lifehacks.app.di.application.AppModule
-import com.daily.lifehacks.app.di.application.DaggerAppComponent
+import android.os.StrictMode
+import su.leff.smartcounter.di.application.AppComponent
+import su.leff.smartcounter.di.application.AppModule
 import su.leff.smartcounter.database.AppDatabase
 import su.leff.smartcounter.database.entity.food.FoodRepository
 import su.leff.smartcounter.database.entity.foodtype.FoodTypeRepository
 import su.leff.smartcounter.database.entity.meal.MealRepository
+import su.leff.smartcounter.di.application.DaggerAppComponent
 import su.leff.smartcounter.sharedpreferences.ISharedPreferencesAPI
 import su.leff.smartcounter.viewmodels.MealViewModel
 import javax.inject.Inject
@@ -36,6 +37,8 @@ class MyApplication : Application() {
     lateinit var database: AppDatabase
 
     override fun onCreate() {
+        val builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
         super.onCreate()
         component.inject(this)
         savedContext = this

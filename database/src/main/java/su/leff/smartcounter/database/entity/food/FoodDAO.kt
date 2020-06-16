@@ -6,25 +6,25 @@ import androidx.room.*
 public interface FoodDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFood(food: FoodEntity)
+    fun insertFood(food: FoodEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(food: List<FoodEntity>)
+    fun insertAll(food: List<FoodEntity>)
 
     @Query("SELECT * FROM FOODTABLE")
-    suspend fun fetchAllFood(): List<FoodEntity>
+    fun fetchAllFood(): List<FoodEntity>
 
     @Query("SELECT * FROM FOODTABLE WHERE food_id =:foodId")
-    suspend fun getFood(foodId: Long): FoodEntity
+    fun getFood(foodId: Long): FoodEntity
 
     @Query("SELECT * FROM FOODTABLE WHERE food_meal_id =:mealId")
-    suspend fun getFoodByMeal(mealId: Long): List<FoodEntity>
+    fun getFoodByMeal(mealId: Long): List<FoodEntity>
 
     @Transaction
     @Update
-    suspend fun updateFood(food: FoodEntity)
+    fun updateFood(food: FoodEntity)
 
     @Transaction
     @Delete
-    suspend fun deleteFood(food: FoodEntity)
+    fun deleteFood(food: FoodEntity)
 }

@@ -12,8 +12,9 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_addfoodcategory.*
 import su.leff.smartcounter.R
 import su.leff.smartcounter.colorer.ResourceManager
+import su.leff.smartcounter.util.BaseFragment
 
-class AddFoodCategoryFragment : Fragment() {
+class AddFoodCategoryFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,16 +32,15 @@ class AddFoodCategoryFragment : Fragment() {
             txvFoodTitle.setTextColor(ResourceManager.getUsualTextColorColor(it))
         }
 
-        setTitleText("tell me about that food")
+        setTitleText("Это был...")
 
-        cbBreakfast.setTitleText("Breakfast")
-        cbDinner.setTitleText("Dinner")
-        cbDrink.setTitleText("Drink")
-        cbEvening.setTitleText("Evening")
-        cbLunch.setTitleText("Lunch")
-        cbSnack.setTitleText("Snack")
-        cbSupper.setTitleText("Supper")
-        cbWater.setTitleText("Water")
+        cbBreakfast.setTitleText("Завтрак")
+        cbDinner.setTitleText("Обед")
+        cbLunch.setTitleText("Ланч")
+        cbSnack.setTitleText("Перекус")
+        cbSupper.setTitleText("Ужин")
+
+        mealViewModel.clearActiveMeal()
 
 
         cbBreakfast.setOnClickListener {

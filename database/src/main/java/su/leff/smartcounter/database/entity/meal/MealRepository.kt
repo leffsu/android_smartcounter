@@ -7,24 +7,31 @@ import java.util.*
 class MealRepository(private val mDao: MealDAO
 ) {
 
-    suspend fun insertMeal(meal: Meal) {
+     fun insertMeal(meal: Meal) {
         mDao.insertMeal(MealEntity.from(meal))
     }
 
-    suspend fun fetchAllMeal(): List<Meal> {
+     fun getMealByTimestamp(t: Long): Meal {
+        return MealEntity.toMeal(mDao.getMealByTimestamp(t))
+    }
+
+     fun fetchAllMeal(): List<Meal> {
         return MealEntity.toMeal(mDao.fetchAllMeal())
     }
 
+     fun fetchAllMealByDay(timestampStart: Long, timestampEnd: Long): List<Meal> {
+        return MealEntity.toMeal(mDao.getAllMealsByDay(timestampStart, timestampEnd))
+    }
 
-    suspend fun getMeal(mealId: Int): Meal {
+     fun getMeal(mealId: Int): Meal {
         return MealEntity.toMeal(mDao.getMeal(mealId))
     }
 
-    suspend fun updateMeal(meal: Meal) {
+     fun updateMeal(meal: Meal) {
         return mDao.updateMeal(MealEntity.from(meal))
     }
 
-    suspend fun deleteMeal(meal: Meal) {
+     fun deleteMeal(meal: Meal) {
         return mDao.deleteMeal(MealEntity.from(meal))
     }
 }

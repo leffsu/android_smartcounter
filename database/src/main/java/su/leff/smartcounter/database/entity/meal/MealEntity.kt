@@ -18,7 +18,7 @@ data class MealEntity(
 
     companion object {
         fun from(user: Meal): MealEntity {
-            return MealEntity(0L, user.timestamp, user.mealType)
+            return MealEntity(user.id, user.timestamp, user.mealType)
         }
 
         fun from(meals: List<Meal>): List<MealEntity> {
@@ -54,7 +54,11 @@ data class Meal(
     var title: String,
     var description: String,
     var calories: Long,
-    val foods: ArrayList<Food> = ArrayList()
+    val foods: ArrayList<Food> = ArrayList(),
+    var temp: String,
+    var proteins: Int,
+    var fats: Int,
+    var carbo: Int
 ) {
     constructor(id: Long, timestamp: Long, mealType: Long) : this(
         id,
@@ -62,6 +66,11 @@ data class Meal(
         mealType,
         "",
         "",
-        0L
+        0L,
+        ArrayList<Food>(),
+        "",
+        0,
+        0,
+        0
     )
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_loginpage.*
 import su.leff.smartcounter.R
 import su.leff.smartcounter.util.BaseFragment
 import su.leff.smartcounter.colorer.ResourceManager
+import su.leff.smartcounter.util.isProbablyAnEmulator
 
 
 class LoginPageFragment : BaseFragment() {
@@ -30,7 +32,9 @@ class LoginPageFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val account = GoogleSignIn.getLastSignedInAccount(context)
 
-        if (account != null) {
+        if (account != null
+//            || isProbablyAnEmulator()
+        ) {
             findNavController().navigate(R.id.action_loginPageFragment_to_homePageFragment)
             return
         }
@@ -42,10 +46,11 @@ class LoginPageFragment : BaseFragment() {
 
         }
 
-        setWelcomeMessage("hello there\r\nnice to see you here")
+        setWelcomeMessage("Привет,\r\nрады тебя видеть")
         setAppName("Smart Counter")
 
         sign_in_button.setSize(SignInButton.SIZE_WIDE)
+        (sign_in_button.getChildAt(0) as TextView).text = "Войти с помощью Google"
 
         sign_in_button.setOnClickListener {
             val gso =
@@ -79,6 +84,8 @@ class LoginPageFragment : BaseFragment() {
             }
         }
     }
+
+
 
     fun setWelcomeMessage(value: String) {
         txvHelloThere.text = value

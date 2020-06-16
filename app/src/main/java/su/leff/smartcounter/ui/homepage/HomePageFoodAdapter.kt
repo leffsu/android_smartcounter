@@ -9,8 +9,10 @@ import kotlinx.android.synthetic.main.viewholder_food.view.*
 import su.leff.smartcounter.colorer.ResourceManager
 import su.leff.smartcounter.R
 import su.leff.smartcounter.database.entity.meal.Meal
+import su.leff.smartcounter.ui.addfooddetailed.IAddFoodPickReceiver
+import su.leff.smartcounter.ui.addfooddetailed.IListFoodPickReceiver
 
-class HomePageFoodAdapter(val context: Context?, newList: List<Meal>) :
+class HomePageFoodAdapter(val context: Context?, newList: List<Meal>, private val receiver: IListFoodPickReceiver?) :
     RecyclerView.Adapter<HomePageFoodAdapter.FoodViewHolder>() {
     init {
 
@@ -25,9 +27,16 @@ class HomePageFoodAdapter(val context: Context?, newList: List<Meal>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
-        val holder = FoodViewHolder(LayoutInflater.from(context).inflate(R.layout.viewholder_food, parent, false))
+        val holder = FoodViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.viewholder_food, parent, false)
+        )
         holder.color()
-        holder.itemView.cardViewFood.setOnClickListener {  }
+        holder.itemView.cardViewFood.setOnClickListener {
+            receiver?.onFoodClicked(tempFoodList[holder.adapterPosition])
+        }
+        holder.itemView.btnDelete.setOnClickListener {
+            receiver?.onFoodDeleted(tempFoodList[holder.adapterPosition])
+        }
         return holder
     }
 
@@ -43,14 +52,18 @@ class HomePageFoodAdapter(val context: Context?, newList: List<Meal>) :
     inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(tempFood: Meal) {
-            itemView.txvFoodTitle.text = tempFood.id.toString()
+            itemView.txvFoodTitle.text = tempFood.title
             itemView.txvFoodDescription.text = tempFood.description
             itemView.txvFoodCalories.text = "~ ${tempFood.calories}kcal"
         }
 
         fun color() {
             context?.applicationContext?.let {
-                itemView.cardViewFood.setCardBackgroundColor(ResourceManager.getItemBackgroundColor(it))
+                itemView.cardViewFood.setCardBackgroundColor(
+                    ResourceManager.getItemBackgroundColor(
+                        it
+                    )
+                )
                 itemView.txvFoodTitle.setTextColor(ResourceManager.getUsualTextColorColor(it))
                 itemView.txvFoodDescription.setTextColor(ResourceManager.getOrangeAccentColor(it))
                 itemView.txvFoodCalories.setTextColor(ResourceManager.getUsualTextColorColor(it))

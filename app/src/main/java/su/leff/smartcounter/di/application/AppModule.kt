@@ -1,9 +1,10 @@
-package com.daily.lifehacks.app.di.application
+package su.leff.smartcounter.di.application
 
 import android.app.Application
 import dagger.Module
 import dagger.Provides
 import su.leff.smartcounter.database.AppDatabase
+import su.leff.smartcounter.di.application.AppScope
 import su.leff.smartcounter.sharedpreferences.ISharedPreferencesAPI
 import su.leff.smartcounter.sharedpreferences.SharedPreferencesImpl
 

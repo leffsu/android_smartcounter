@@ -1,6 +1,4 @@
-package com.daily.lifehacks.app.di.activity
-
-import javax.inject.Scope
+package su.leff.smartcounter.di.activity
 
 @ActivityScope
 @Retention(AnnotationRetention.RUNTIME)

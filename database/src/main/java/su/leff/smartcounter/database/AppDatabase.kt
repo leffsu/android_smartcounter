@@ -17,7 +17,11 @@ import su.leff.smartcounter.database.entity.foodtype.population
 import java.util.concurrent.Executors
 
 
-@Database(entities = [FoodEntity::class, MealEntity::class, FoodTypeEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [FoodEntity::class, MealEntity::class, FoodTypeEntity::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -42,6 +46,7 @@ abstract class AppDatabase : RoomDatabase() {
         // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+                .allowMainThreadQueries()
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
